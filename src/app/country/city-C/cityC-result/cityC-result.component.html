@@ -1,0 +1,34 @@
+<div class="container">
+  <h1>CityC Level Positions Results</h1>
+  <div *ngFor="let position of positions; let indexofelement = index">
+    <h1 class="mtb">Position: {{ position.name }}</h1>
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <th>Name</th>
+          <th>City</th>
+          <th>City Position</th>
+          <th>Votes</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let candidate of cityResult; let indexofelement = index">
+            <ng-container *ngIf="candidate.position === position.name">
+              <td>
+                <p>{{ candidate.name }}</p>
+              </td>
+              <td>
+                <p>{{ candidate.city }}</p>
+              </td>
+              <td>
+                <p>{{ candidate.position }}</p>
+              </td>
+              <td>
+                <p>{{ candidate.votes }}</p>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

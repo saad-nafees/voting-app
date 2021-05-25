@@ -1,0 +1,149 @@
+<div class="container">
+  <h1>Candidate List</h1>
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <th>Name</th>
+        <th>City</th>
+        <th>Country Position</th>
+        <th>City Position</th>
+        <th>Actions</th>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let candidate of candidateData; let indexofelement = index">
+          <td>
+            <p *ngIf="!candidate.edit">{{ candidate.name }}</p>
+            <input
+              class="input"
+              *ngIf="candidate.edit"
+              type="text"
+              placeholder="Name"
+              [(ngModel)]="candidate.name"
+              value="{{ candidate.name }}"
+            />
+          </td>
+          <td>
+            <p *ngIf="!candidate.edit">{{ candidate.city }}</p>
+            <select
+              *ngIf="candidate.edit"
+              class="input"
+              [(ngModel)]="candidate.city"
+            >
+              <option [ngValue]="'N/A'">N/A</option>
+
+              <option *ngFor="let city of appData.cities" [ngValue]="city">
+                {{ city }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <p *ngIf="!candidate.edit">{{ candidate.countryPosition }}</p>
+
+            <select
+              *ngIf="candidate.edit"
+              class="input"
+              [(ngModel)]="candidate.countryPosition"
+            >
+              <option [ngValue]="'N/A'">N/A</option>
+
+              <option
+                *ngFor="let position of appData.positions.country"
+                [ngValue]="position.name"
+              >
+                {{ position.name }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <p *ngIf="!candidate.edit">{{ candidate.cityPosition }}</p>
+            <select
+              *ngIf="candidate.edit"
+              class="input"
+              [(ngModel)]="candidate.cityPosition"
+            >
+              <option [ngValue]="'N/A'">N/A</option>
+
+              <option
+                *ngFor="let position of appData.positions.city"
+                [ngValue]="position.name"
+              >
+                {{ position.name }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <button class="btn red" (click)="deleteCandidate(indexofelement)">
+              Delete
+            </button>
+            <button
+              [ngClass]="{ btn: true, edit: candidate.edit }"
+              (click)="
+                !candidate.edit
+                  ? editCandidate(indexofelement)
+                  : saveCandidate(indexofelement)
+              "
+            >
+              {{ candidate.edit ? "Save" : "Edit" }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="btn add-button" (click)="showModal()">Add Candidate</button>
+  <div class="product-modal-back" [style.display]="modal ? 'block' : 'none'">
+    <div id="product-edit-form">
+      <div class="input-group">
+        <label>Name</label>
+        <input type="text" placeholder="Name" [(ngModel)]="name" />
+      </div>
+
+      <div class="input-group">
+        <label>City</label>
+        <div>
+          <select class="inputs" [(ngModel)]="city">
+            <option [ngValue]="'N/A'">N/A</option>
+            <option *ngFor="let city of appData.cities" [ngValue]="city">
+              {{ city }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Country Position</label>
+        <div>
+          <select class="inputs" [(ngModel)]="countryPosition">
+            <option [ngValue]="'N/A'">N/A</option>
+            <option
+              *ngFor="let position of appData.positions.country"
+              [ngValue]="position.name"
+            >
+              {{ position.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Country Position</label>
+        <div>
+          <select class="inputs" [(ngModel)]="cityPosition">
+            <option [ngValue]="'N/A'">N/A</option>
+            <option
+              *ngFor="let position of appData.positions.city"
+              [ngValue]="position.name"
+            >
+              {{ position.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn" type="button" (click)="addCandidate()">Add</button>
+      <button class="btn" type="button" (click)="hideModal()">Cancel</button>
+    </div>
+  </div>
+</div>

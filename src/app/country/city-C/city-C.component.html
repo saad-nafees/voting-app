@@ -1,0 +1,51 @@
+<div class="container">
+  <h1>CityC Level Candidates Polling</h1>
+  <div class="dropdown">
+    <select class="inputs" [(ngModel)]="position">
+      <!-- <option [ngValue]="'N/A'">N/A</option> -->
+      <option *ngFor="let position of positionData" [ngValue]="position.name">
+        {{ position.name }}
+      </option>
+    </select>
+  </div>
+  <h1 class="mtb">{{ position }}</h1>
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <th>Name</th>
+        <th>City</th>
+        <th>City Position</th>
+        <th>Votes</th>
+        <th>Actions</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let candidate of candidateData; let indexofelement = index">
+          <ng-container *ngIf="candidate.position === position">
+            <td>
+              <p>{{ candidate.name }}</p>
+            </td>
+            <td>
+              <p>{{ candidate.city }}</p>
+            </td>
+            <td>
+              <p>{{ candidate.position }}</p>
+            </td>
+            <td>
+              <p>{{ candidate.votes }}</p>
+            </td>
+            <td>
+              <button
+                class="btn edit"
+                (click)="poll(candidate.name, candidate.position)"
+              >
+                Vote
+              </button>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="btn add-button" (click)="stopVoting()">Close Polling</button>
+</div>

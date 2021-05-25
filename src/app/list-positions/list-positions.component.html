@@ -1,0 +1,147 @@
+<div class="container">
+  <h1>Country Positions</h1>
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <th>Position</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </thead>
+
+      <tbody>
+        <tr
+          *ngFor="
+            let position of positionData.country;
+            let indexofelement = index
+          "
+        >
+          <td>
+            <p *ngIf="!position.edit">{{ position.name }}</p>
+            <input
+              class="input"
+              *ngIf="position.edit"
+              type="text"
+              placeholder="Name"
+              [(ngModel)]="position.name"
+              value="{{ position.name }}"
+            />
+          </td>
+          <td>
+            <p *ngIf="!position.edit">{{ position.status }}</p>
+            <select
+              *ngIf="position.edit"
+              class="input"
+              [(ngModel)]="position.status"
+            >
+              <option [ngValue]="'open'">open</option>
+              <option [ngValue]="'close'">close</option>
+            </select>
+          </td>
+
+          <td>
+            <button
+              class="btn red"
+              (click)="deletePosition(indexofelement, 'country')"
+            >
+              Delete
+            </button>
+            <button
+              [ngClass]="{ btn: true, edit: position.edit }"
+              (click)="
+                !position.edit
+                  ? editPosition(indexofelement, 'country')
+                  : savePosition(indexofelement, 'country')
+              "
+            >
+              {{ position.edit ? "Save" : "Edit" }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button class="btn add-button" (click)="showModal('country')">
+    Add Country Position
+  </button>
+
+  <h1 class="mt">City Positions</h1>
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <th>Position</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </thead>
+
+      <tbody>
+        <tr
+          *ngFor="let position of positionData.city; let indexofelement = index"
+        >
+          <td>
+            <p *ngIf="!position.edit">{{ position.name }}</p>
+            <input
+              class="input"
+              *ngIf="position.edit"
+              type="text"
+              placeholder="Name"
+              [(ngModel)]="position.name"
+              value="{{ position.name }}"
+            />
+          </td>
+          <td>
+            <p *ngIf="!position.edit">{{ position.status }}</p>
+            <select
+              *ngIf="position.edit"
+              class="input"
+              [(ngModel)]="position.status"
+            >
+              <option [ngValue]="'open'">open</option>
+              <option [ngValue]="'close'">close</option>
+            </select>
+          </td>
+
+          <td>
+            <button
+              class="btn red"
+              (click)="deletePosition(indexofelement, 'city')"
+            >
+              Delete
+            </button>
+            <button
+              [ngClass]="{ btn: true, edit: position.edit }"
+              (click)="
+                !position.edit
+                  ? editPosition(indexofelement, 'city')
+                  : savePosition(indexofelement, 'city')
+              "
+            >
+              {{ position.edit ? "Save" : "Edit" }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button class="btn add-button" (click)="showModal('city')">
+    Add City Position
+  </button>
+
+  <div class="product-modal-back" [style.display]="modal ? 'block' : 'none'">
+    <div id="product-edit-form">
+      <div class="input-group">
+        <label>Position Name</label>
+        <input type="text" placeholder="Name" [(ngModel)]="positionName" />
+      </div>
+      <div class="input-group">
+        <label>Status</label>
+        <select class="inputs" [(ngModel)]="positionStatus">
+          <option [ngValue]="'open'">open</option>
+          <option [ngValue]="'close'">close</option>
+        </select>
+      </div>
+
+      <button class="btn" type="button" (click)="addPosition()">Add</button>
+      <button class="btn" type="button" (click)="hideModal()">Cancel</button>
+    </div>
+  </div>
+</div>
